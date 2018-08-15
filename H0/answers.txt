@@ -116,10 +116,61 @@ endereço: AutoScallingTeste-1320455852.us-east-1.elb.amazonaws.com
 
 ## 2
     
-    O loadbalancer divide o trafego da sua aplicação entre instâncias diferentes afim de não sobrecarregar nenhuma, caso essas instancias não sejam suficientes ele as replica
-    a partir de das AMIs.
+    O loadbalancer divide o trafego da sua aplicação entre instâncias diferentes afim de não sobrecarregar nenhuma, caso essas instancias não sejam suficientes ele as replica...
+	[Falar como funciona o algoritmo]
+
+------------------------------------------------------------------------------------------------------
+FAZENDO USO DA ESCALABILIDADE HORIZONTAL
+
+## 1
+    O auto scalling group monitora suas aplicações ajustando automaticamente a capacidade  de processamento/memoria de suas maquina, afim de manter uma performance estável,
+    bem distrubuída e pelo menor custo possível. O auto scalling prevê o uso de cada recurso, baseado em inputs que o usuário fornece ou/e por I.A, permitindo que otimize
+    as alocações dos recursos da sua cloud.
+	
+
+
+## 2
+	Escalabilidade vertical consiste em adicionar mais recursos a um sistema existente. Já a escalabilidade horizontal consiste em adicionar mais máquinas a um sistema. Por exemplo, quando um sistema mostra problemas de performance, pode-se adicionar mais CPU e memória ao sistema existente ou pode-se adicionar mais máquinas ao sistema, dividindo o processamento.
+
+## 3
+    Não, banco de dados é um exemplo em que escalabildidade horizontal é complicada. É dificil fazer a sincronização dos mesmos dados em diferentes máquinas, como garantir
+    que um update em uma determinada maquina pode ser visto em real-time por alguem logado em outra maquina ? Sincronização é o major problem em escalabilidade horizontal,
+    normalmente sistemas que possuem dados dependentes entre si vão enfrentar algum problema, mas não significa que não pode ser usado.
+
+______________________________________________________________________________________________________
+QUESTÕES COMPLEMENTARES
+
+## 1
+	VPS (Virtual Private Server) é um servidor dedicado dividido em várias partes, cada uma atuando como um servidor individual. Ou seja, uma máquina rodando aplicações de vários clientes ao mesmo tempo.
+	A grande diferença entre uma Instância (Cloud) e um VPS é onde e comoa máquina opera. Em um Cloud Server os serviços dos clientes rodam em diversas máquinas físicas, que dividem recursos. Isso impacta no preço e na disponibilidade do serviço.
+
+## 2
+    PaaS -> A seguinte frase foi retirada do wikipedia:
+        "PaaS — Platform as a Service — em computação, consiste no serviço propriamente dito, de hospedagem e implementação de hardware e software, que é usado para prover 
+        aplicações (software como serviço) por meio da Internet."
+        Platform as a Service é um meio termo entre o IaaS e o SaaS, ele permite que você gerencie sistemas que envolvem hardware através de uma interface (plataforma)
+        que permite a configuração/costumização desse sistema. 
+## 3
+    A palavra chave para essa questão é "Reliability". Você precisa passar confiança/segurança aos seus clientes de que os seus serviços estarão disponíveis não importando,
+    o tráfego de pessoas que os usam, o objeto é um uptime de 100% ( mesmo sabendo que não é possível). Sistemas foras do ar geram prejuízos, e o LoadBalancer é uma ferramenta
+    a mais que reduz as chances desse tipo de situações, justificando seu preço.
     
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+CONCLUINDO
+
+## 1
+    Public cloud é um ambiente completamente virtualizado, em que empresas fornecem recursos computacionais como serviço para qualquer organização/pessoa sendo 
+    normalmente no modelo pay-for-usage, ou seja, usou paga. Basicamente você terceiriza seu data center, ganhando até um certo ponto em custo, tempo e escalabilidade.
+
+
+## 2
+    O IaaS é um serviço responsável por fornecer toda infraestrutura  (servidores, rede, armazenamento e outros recursos de computação) para as seguintes camadas de serviço
+    PaaS e SaaS. É prover toda a infraestrutura de hardware, incluindo sua manutenção e gerenciamento como parte do serviço. Através de IaaS obtem-se mais eficiência uma vez
+    que os ambientes virtualizados "arrancam" o maximo de seus hardwares físicos.
     
 
 
+## 3
+    Escalabilidade é o poder de ter um sistema completamente responsivo à sua demanda de uso, a maleabilidade de poder disponibilizar mais recursos ou reduzi-los de forma
+    rápida otimizando seus custos.
 

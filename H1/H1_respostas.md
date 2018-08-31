@@ -58,6 +58,9 @@ Para aplicar as configurações, bastou rodar o comando `sudo netplan apply`
 ## Chaveando o DHCP
 #### 1. Por que Desabilitar o dhcp do roteador?
 
+Para que não haja dois dhcps server na mesma subrede, evitando conflitos de ip, poderiamos ate distribuir faixas diferentes de ip para cada dhcp server,mas aí é outra
+história.
+
 #### 2. Como funciona o ataque DHCP rogue? Como evitar?
 
 Quando usuários se conectam à rede, o falso servidor DHCP e o verdadeiro irão oferecer endereços IP. Quando a resposta do falso servidor DHCP chega primeiro no usuário

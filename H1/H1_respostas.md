@@ -64,28 +64,27 @@ Podemos conectar o computador ao MaaS por meio do SSH, fazendo o `ssh cloud@192.
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCq20Zts/xPSZOzjtvQl5Lh2XcEzIxvM/WOlMssg53V5PgbXIPXWjYNpeMsEB5gm6EdmD+GXrOqMolSbQUVQVT7LcDlnDetRE6w9C58D6ZhunuRGHKSCI8HlS4wIXZHBbj3Vor8xxFKMrgsQSt1BUKV7U7cfKZgvNof+rHkQf77Wsm13xX4qdhxY1+CBW/7/c5LSPqjZVqmJfq7R8/v30D7Ccnhn5Oqgnm609/rGSVUklw4/qW+uQHfasRcHo76RDP0UDgpvBQUNL7Rxnqk5Z/trX1mrDGsJqOJiMDSNDvJlV648w6hVEHzK66gW6SnExY6HZxRA8/5K5b8urnXkjTj cloud@cloud
 
 ## Chaveando o DHCP
-#### 1. Por que Desabilitar o dhcp do roteador?
-
-Para que não haja dois dhcps server na mesma subrede, evitando conflitos de ip, poderiamos ate distribuir faixas diferentes de ip para cada dhcp server,mas aí é outra
-história.
+#### 1. Por que Desabilitar o DHCP do roteador?
+Caso exista mais de um DHCP Server na mesma subrede, há grandes possibilidades de conflitos de IP. Pois diferentes DHCP Servers podem atribuir um mesmo IP para máquinas diferentes e IPs diferentes para uma mesma máquina. Para resolver isso, podemos distribuir diferentes faixas de IPs para cada DHCP, mas no nosso caso, queremos que a maas controle as máquinas.
 
 #### 2. Como funciona o ataque DHCP rogue? Como evitar?
-Quando usuários se conectam à rede, o falso servidor DHCP e o verdadeiro irão oferecer endereços IP. Quando a resposta do falso servidor DHCP chega primeiro no usuário
-ele irá ignorar a resposta do DHCP verdadeiro da rede e estará na rede do atacante. Dessa maneira o atacante passa ser o gateway padrão da vítima,
-fazendo com isso um ataque do tipo Man-in-the-Middle, o atacante também pode atuar como um servidor DNS, podendo encaminhar a vítima para endereços maliciosos. Existe uma
-função hoje em dia chamada DHCP Snooping que rastreia endereços MAC, atribuições de endereços IP e portas correspondentes, garantindo que apenas combinações
- legítimas possam se comunicar.
+Quando usuários se conectam à rede, o falso servidor DHCP e o verdadeiro irão oferecer endereços IP. Quando a resposta do falso servidor DHCP chega primeiro no usuário ele irá ignorar a resposta do DHCP verdadeiro da rede e estará na rede do atacante. Dessa maneira o atacante passa ser o gateway padrão da vítima, podendo implementar um ataque do tipo Man-in-the-Middle. O atacante também pode atuar como um servidor DNS, podendo encaminhar a vítima para endereços maliciosos. Existe uma função hoje em dia chamada DHCP Snooping que rastreia endereços MAC, aribuições de endereços IP e portas correspondentes, garantindo que apenas combinações legítimas possam se comunicar.
 
 ## Comissioning nodes
 #### 1. Descreva o processo PXE Boot? Qual a sua grande vantagem em um datacenter real?
+PXE Boot é um método de boot remoto desenvolvido pela Intel, que permite que o PC boot através da rede, carregando todo o software necessário a partir de um servidor previamente configurado, que neste caso foi o Maas. Com o Maas ligado e com as outras máquinas configuradas para bootar por meio da rede, ligou-se cada uma delas que começaram a enviar pacotes de broadcast pela rede, informando que estavam "aptas" a serem controladas. Ao identificar as máquinas da rede que podem ser controladas, o Maas as identificou por meio do MAC Address. Assim, pudemos nomear as máquinas a partir disso, atribuir um IP stático para cada uma delas e habilitar o Intel AMT que permite o Maas ligar e desligar cada uma delas.
+
+Em um datacenter real, o PXE é extremamente útil, pois como ele permite que todas as máquinas possam ser bootadas remotamente, sem necessidade de instalar o sistema operacional por meio de um pendrive.
 
 #### 2. Analisando em um aspecto mais amplo, quais outras funcionalidades do MaaS pode ser útil no gerenciamento de bare metal?
+Por meio do Intel AMT, o Maas consegue gerenciar a energia das máquinas, podendo liga e desligar cada uma remotamente. Além disso, é possível automatizar a descoberta e registro de cada dispositivo na rede, fazer o deply de uma máquina remotamente, configurar interface de rede das máquinas, gerenciar a rede, fazer integrações com outras ferramentas de automação (clojure, juju...) e monitora os serviços críticos da rede de computadores.
 
 ## Finalizando a rede para acesso “externo”.
 #### 1. Qual o nome e como funciona a ferramenta utilizada?
+Para acessar o Maas remotamente, por meio de outra rede, foi preciso fazer o roteamento de portas no roteador. Redirecionando todo acesso da porta 22 feito no IP do roteador (10.242.32.3) para o IP do Maas (192.168.0.3), também na porta 22.
 
 #### 2. O que deveria ser feito para você conseguir acessar o Maas da sua casa?
-
+Para conseguir acessar o Maas da nossa casa, o administrador de redes do Insper, deveria abrir a porta 22 da rede Insper e redirecionar para a o Maas, que está em uma das várias subredes que existem no complexo. Mas como isso seria uma grande vulnerabilidade para a Instituição, não é viável concretizar tal coisa.
 
 ## Questões Complementares
 #### 1. O que significa LTS? Por que isso importa para uma empresa?

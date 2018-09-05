@@ -5,18 +5,22 @@
 #### 1. Como foi feito para identificar as NUCs corretamente sem um sistema operacional?
 Sem o sistema operacional, podemos obter informações sobre o sistema por meio de BIOS (Basic Input/Output System).
 
-
 ## Rede:
 #### Fazer um desenho prévio de um diagrama que representa a montagem física dos equipamentos.
+![Diagrama](network_diagram.png)
 
 #### 1. Quais IPs são fixos e quais são flutuantes? Qual a subrede?
-O IP fixo é o da Rede ao qual nosso roteador está ligado, que nesse caso é a rede do Insper, todos os outros ips abaixo do rote
+Os IPs fixos da subrede são o do roteador (192.168.0.1) e do Switch (192.168.0.2). O único IP flutuante da rede é o que o roteador recebe do Insper (IP externo) sempre que ele é reconectado a rede. Portanto:
+- Roteador Externo: Flutuante
+- Roteador Interno: Fixo (192.168.0.1)
+- Switch: Fixo (192.168.0.2)
+- Subrede: 192.168.0.0/20
 
 #### 2. Existe um DHCP server na sua rede? Aonde?
-Existem o  DHCP server da nossa rede está dentro do Roteador Asus que dinamicamente aloca diferentes hosts para as maquinas conectadas à  ele.
+DHCP Server da nossa rede está dentro do Roteador Asus que dinamicamente aloca diferentes IPs para as máquinas conectadas à rede. 
 
 #### 3. Existe um DNS server na sua rede? Aonde?
-Não, Domain Name Registration é um banco de dados que traduz um IP em um nome mais humano, nossa subrede cuida simplesmente da parte de Rede do modelo OSI, não precisamos tratar isso.
+Não, o Domain Name Registration é um servidor que traduz o nome do site em um IP, por exemplo: google.com -> 172.217.29.174. A nossa subrede cuida simplesmente da parte de Rede do modelo OSI, não precisamos tratar isso.
 
 #### 4. Existe um gateway? Aonde?
 Existe, no Roteador. O Roteador é o responsável por gerenciar diferentes pedidos (request, trocas de pacote) da sua sub-rede, no final das contas ele centraliza tudo nele, e por informações que cada pacote tem (o que inclui de qual host esse pacote  vêm, e para qual ele vai) o roteador faz intermediação.
@@ -26,15 +30,12 @@ Topologia estrela, as NUCS estão todas diretamente ligadas em um computador cen
 
 ## Lapidando o projeto
 #### 1. Quantos IPs utilizáveis estão disponíveis na subrede 192.168.0.0/20? Todos os IP são utilizáveis?
-4094 ips. 2 ips são reservados e não utilizaveis, o primeiro e o ultimo, sendo o primeiro usado para identificação e o ultimo para broadcast.
+Temos 4094 IPs nesta subrede. Dois desses IPs (192.168.0.0 e 192.168.0.255) são reservados e não utilizáveis, sendo o primeiro usado para identificação e o ultimo para broadcast.
 
 #### 2. Qual a diferença entre um IP público e um IP privado?
-
-Um ip publico são aqueles externos a sua subrede, de livre conhecimento, normalmente estão atrelados aos gateways. Ja os ips privados são internos à sua rede. A tradução
-entre esses dois tipos normalmente acontece no gateway através do NAT ( network address translation ).
+Um IP público é aquele externo à subrede, de livre conhecimento, normalmente estão atrelados aos gateways. Já um IP privado é interno à sua rede. A tradução entre esses dois tipos normalmente acontece no gateway através do NAT (Network Address Translation ).
 
 #### 3. Qual a classe utilizada na rede interna do Insper? E na sua rede? Quantas classes existem?
-
 O Insper utiliza uma rede classe B, a nossa é uma CIDR, uma vez que utiliza uma mascara de rede customizada. Ao todo são 4 tipos de classe sem contar com a CIDR.
 
 ## Instalando o MaaS
@@ -104,15 +105,14 @@ As camadas preconizadas são: Física -> Enlace -> Rede -> Transporte -> Aplica�
 
 Nesse roteiro foram envolvidas basicamente todas as camadas, desde a fisica à aplicação. Entretanto o foco foi da física à rede.
 
-Física -> hardwares físicos, ligamento de cabos etc.
-Enlace -> Switch
-Rede -> Roteador.
-Transporte ->  protocolos de comunicação
-Aplicação -> dashboards sendo usadas para o management das outras camadas.
+**Física** -> Hardwares, cabos, etc
+**Enlace** -> Switch
+**Rede** -> Roteador.
+**Transporte** ->  protocolos de comunicação
+**Aplicação** -> dashboards sendo usadas para o management das outras camadas.
 
 #### 4. A literatura mais antiga discorre sobre o Modelo de Rede OSI de 7 camadas. Explique a diferença entre os dois modelos.
 A diferença é que no modelo osi, a camada mais superior do modelo híbrido ("Aplicação"), é dividida em 3 camadas: Sessão, Apresentação e Aplicação. Essas camadas Sessão e Apresentação foram basicamente ignoradas.
-
 
 ## Concluindo
 #### 1. O que é e para que serve um gerenciador de Bare Metal?
@@ -131,9 +131,9 @@ Existem várias técnicas para dividir uma rede, e a subrede é uma delas. A sub
     
 
 #### 5. O que são DHCP, DNS e gateway?
-O DCHP (dynamic host configuration protocol) server é o responśavel por fornecer os ips das maquinas conectadas à sub-rede à qual pertence.
+- O DCHP (dynamic host configuration protocol) server é o responśavel por fornecer os ips das maquinas conectadas à sub-rede à qual pertence.
 
-DNS (domain name system) é um sistema que traduz ips em nomes 'legíveis',  dhcps servers podem acompanhar um DNS server também.
+- DNS (domain name system) é um sistema que traduz ips em nomes 'legíveis',  dhcps servers podem acompanhar um DNS server também.
 
-Um gateway é um dispostivo encarregado de estabelecer a comunicação entre duas redes, respeitando protocolos específicos e tomando decisões para que as duas pontas funcionem. Resumindo,ele faz o papel de ponte.
+- Um gateway é um dispostivo encarregado de estabelecer a comunicação entre duas redes, respeitando protocolos específicos e tomando decisões para que as duas pontas funcionem. Resumindo,ele faz o papel de ponte.
 

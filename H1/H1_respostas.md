@@ -81,7 +81,7 @@ Por meio do Intel AMT, o Maas consegue gerenciar a energia das máquinas, podend
 
 ## Finalizando a rede para acesso “externo”.
 #### 1. Qual o nome e como funciona a ferramenta utilizada?
-Para acessar o Maas remotamente, por meio de outra rede, foi preciso fazer o roteamento de portas no roteador. Redirecionando todo acesso da porta 22 feito no IP do roteador (10.242.32.3) para o IP do Maas (192.168.0.3), também na porta 22.
+Para acessar o Maas remotamente, por meio de outra rede, foi preciso fazer o roteamento de portas no roteador. Redirecionando todo acesso da porta 22 feito no IP do roteador (10.242.32.10) para o IP do Maas (192.168.0.3), também na porta 22. Portanto: `ssh cloud@10.242.32.10`
 
 #### 2. O que deveria ser feito para você conseguir acessar o Maas da sua casa?
 Para conseguir acessar o Maas da nossa casa, o administrador de redes do Insper, deveria abrir a porta 22 da rede Insper e redirecionar para a o Maas, que está em uma das várias subredes que existem no complexo. Mas como isso seria uma grande vulnerabilidade para a Instituição, não é viável concretizar tal coisa.
@@ -109,8 +109,7 @@ Aplicação -> dashboards sendo usadas para o management das outras camadas.
 
 #### 4. A literatura mais antiga discorre sobre o Modelo de Rede OSI de 7 camadas. Explique a diferença entre os dois modelos.
 
-A diferença é que no modelo osi, a camada mais superior do modelo híbrido ("Aplicação"), é dividida em 3 camadas: Sessão, Apresentação e Aplicação. Essas camadas Sessão e
-Apresentação foram basicamente ignoradas.
+A diferença é que no modelo osi, a camada mais superior do modelo híbrido ("Aplicação"), é dividida em 3 camadas: Sessão, Apresentação e Aplicação. Essas camadas Sessão e Apresentação foram basicamente ignoradas.
 
 
 ## Concluindo

@@ -26,10 +26,16 @@ Topologia estrela, as NUCS estão todas diretamente ligadas em um computador cen
 
 ## Lapidando o projeto
 #### 1. Quantos IPs utilizáveis estão disponíveis na subrede 192.168.0.0/20? Todos os IP são utilizáveis?
+4094 ips. 2 ips são reservados e não utilizaveis, o primeiro e o ultimo, sendo o primeiro usado para identificação e o ultimo para broadcast.
 
 #### 2. Qual a diferença entre um IP público e um IP privado?
 
+Um ip publico são aqueles externos a sua subrede, de livre conhecimento, normalmente estão atrelados aos gateways. Ja os ips privados são internos à sua rede. A tradução
+entre esses dois tipos normalmente acontece no gateway através do NAT ( network address translation ).
+
 #### 3. Qual a classe utilizada na rede interna do Insper? E na sua rede? Quantas classes existem?
+
+O Insper utiliza uma rede classe B, a nossa é uma CIDR, uma vez que utiliza uma mascara de rede customizada. Ao todo são 4 tipos de classe sem contar com a CIDR.
 
 ## Instalando o MaaS
 #### 1. Descreva como foram evitados ou resolvidos os problemas de roteamento e resolução de nomes.
@@ -114,17 +120,28 @@ A diferença é que no modelo osi, a camada mais superior do modelo híbrido ("A
 
 ## Concluindo
 #### 1. O que é e para que serve um gerenciador de Bare Metal?
+    O próprio Maas (metal as a service) é um gerenciador de bare metal. Serve para a automação de servidores físicos, aumenta sua eficiência operacional. Ele te permite
+    ter a flexbilidade da cloud (claro que não toda) com a eficiência dos servidores físicos.
 
 #### 2. O que é um MAC address?
 É um número de identificação único designado ao NIC (Network Interface Controller) de um dispositivo, sendo usado como um endereço de rede, para controle de acesso em redes de computadores. 
 
 #### 3. O que é um IP address? Como ele difere do MAC address?
-	IP -> Pg. 277
-  
+dx
 O IP (Internet Protocol) Address é um endereço de protocolo da internet que identifica cada host conectado à rede, permitindo que elas se comuniquem e troquem informações. O IP é um identificador virtual que permite a comunicação e localização das partes. Já o MAC Address é um identificador físico, "imutável" que identifica placa de rede das máquinas ligadas a internet.
 
 #### 4. O que é CIDR? Qual o papel da subrede?
-	CIDR -> Pg. 279
+	É uma classificação dada para redes que não são do tipo A, B ou C, ou seja,usam uma mascara de rede customizada. A tradução do seu acrônimo é: 'Classless Inter-Domain
+    Routing'.
+    Quando uma rede se torna muito grande e o desempenho começa a cair como consequência de muito tráfego, pode-se resolver o problema dividindo a rede em partes menores.
+    Existem várias técnicas para dividir uma rede, e a subrede é uma delas. A sub-rede é basicamente apenas uma maneira de dividir uma rede TCP / IP em partes menores e mais gerenciáveis. 
+    A ideia básica é que, se você tiver uma quantidade excessiva de tráfego fluindo pela rede, esse tráfego poderá fazer com que a sua rede fique lenta.
+     Quando divide sua rede em subrede, você está dividindo a rede em uma rede separada, mas interconectada.
+    
 
-#### 5. O que é são DHCP, DNS e gateway?
-	DHCP -> Pg. 294
+#### 5. O que são DHCP, DNS e gateway?
+	O DCHP (dynamic host configuration protocol) server é o responśavel por fornecer os ips das maquinas conectadas à sub-rede à qual pertence.
+    DNS (domain name system) é um sistema que traduz ips em nomes 'legíveis',  dhcps servers podem acompanhar um DNS server também.
+    Um gateway é um dispostivo encarregado de estabelecer a comunicação entre duas redes, respeitando protocolos específicos e tomando decisões para que
+    as duas pontas funcionem. Resumindo,ele faz o papel de ponte.
+

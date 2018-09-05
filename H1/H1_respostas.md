@@ -100,12 +100,9 @@ LTS significa Long Term Support é um tipo de contrato que a empresa mantenedora
 O padrão atual do IP (Internet Protocol) é a versão 4 (IPv4) que tem um tamanho de 32 bits, permitindo que 2^32 dispositivos sejam mapeados por meio de IP Addresses. Mas a partir da década de 90 em que ja previam que com a ascenção da Internet, uma hora os quase 4 bilhões de possíveis hosts iriam se esgotar. Portanto, recorreu-se a uma nova versão do protocolo, chamada IPv6, onde o endereço passa ter tamanho 128 bits, permitindo muitos novos endereços. Ele também reduzuz o tamanho das tabelas de roteamento, aumenta a velocidade de processamento de pacotes pelos roteadores, é mais seguro, é mais fácil de ser evoluído e permite a coexistência de diferentes protocolos. A migração é de extrema importância para a internet não estagnar em número de usuários. 
 
 #### 3. A literatura preconiza que o Modelo de Rede Internet possui 5 camadas, quais são elas e quais camadas foram envolvidas nesse capítulo?
+As camadas preconizadas são: Física -> Enlace -> Rede -> Transporte -> Aplicação.
 
-As camadas preconizadas são as seguintes:
-
-Física -> Enlace -> Rede -> Transporte -> Aplicação.
-
-Nesse roteiro foram envolvidas basicamente todas as camadas, desde à fisica à aplicação. Entretanto o foco foi da física à rede.
+Nesse roteiro foram envolvidas basicamente todas as camadas, desde a fisica à aplicação. Entretanto o foco foi da física à rede.
 
 Física -> hardwares físicos, ligamento de cabos etc.
 Enlace -> Switch
@@ -114,34 +111,29 @@ Transporte ->  protocolos de comunicação
 Aplicação -> dashboards sendo usadas para o management das outras camadas.
 
 #### 4. A literatura mais antiga discorre sobre o Modelo de Rede OSI de 7 camadas. Explique a diferença entre os dois modelos.
-
 A diferença é que no modelo osi, a camada mais superior do modelo híbrido ("Aplicação"), é dividida em 3 camadas: Sessão, Apresentação e Aplicação. Essas camadas Sessão e Apresentação foram basicamente ignoradas.
 
 
 ## Concluindo
 #### 1. O que é e para que serve um gerenciador de Bare Metal?
-    O próprio Maas (metal as a service) é um gerenciador de bare metal. Serve para a automação de servidores físicos, aumenta sua eficiência operacional. Ele te permite
-    ter a flexbilidade da cloud (claro que não toda) com a eficiência dos servidores físicos.
+O próprio Maas (metal as a service) é um gerenciador de bare metal. Serve para a automação de servidores físicos, aumenta sua eficiência operacional. Ele te permite ter a flexbilidade da cloud (claro que não toda) com a eficiência dos servidores físicos.
 
 #### 2. O que é um MAC address?
 É um número de identificação único designado ao NIC (Network Interface Controller) de um dispositivo, sendo usado como um endereço de rede, para controle de acesso em redes de computadores. 
 
 #### 3. O que é um IP address? Como ele difere do MAC address?
-dx
 O IP (Internet Protocol) Address é um endereço de protocolo da internet que identifica cada host conectado à rede, permitindo que elas se comuniquem e troquem informações. O IP é um identificador virtual que permite a comunicação e localização das partes. Já o MAC Address é um identificador físico, "imutável" que identifica placa de rede das máquinas ligadas a internet.
 
 #### 4. O que é CIDR? Qual o papel da subrede?
-	É uma classificação dada para redes que não são do tipo A, B ou C, ou seja,usam uma mascara de rede customizada. A tradução do seu acrônimo é: 'Classless Inter-Domain
-    Routing'.
-    Quando uma rede se torna muito grande e o desempenho começa a cair como consequência de muito tráfego, pode-se resolver o problema dividindo a rede em partes menores.
-    Existem várias técnicas para dividir uma rede, e a subrede é uma delas. A sub-rede é basicamente apenas uma maneira de dividir uma rede TCP / IP em partes menores e mais gerenciáveis. 
-    A ideia básica é que, se você tiver uma quantidade excessiva de tráfego fluindo pela rede, esse tráfego poderá fazer com que a sua rede fique lenta.
-     Quando divide sua rede em subrede, você está dividindo a rede em uma rede separada, mas interconectada.
+É uma classificação dada para redes que não são do tipo A, B ou C, ou seja,usam uma mascara de rede customizada. A tradução do seu acrônimo é: 'Classless Inter-Domain Routing'. Quando uma rede se torna muito grande e o desempenho começa a cair como consequência de muito tráfego, pode-se resolver o problema dividindo a rede em partes menores.
+
+Existem várias técnicas para dividir uma rede, e a subrede é uma delas. A sub-rede é basicamente apenas uma maneira de dividir uma rede TCP / IP em partes menores e mais gerenciáveis. A ideia básica é que, se você tiver uma quantidade excessiva de tráfego fluindo pela rede, esse tráfego poderá fazer com que a sua rede fique lenta. Quando divide sua rede em subrede, você está dividindo a rede em uma rede separada, mas interconectada.
     
 
 #### 5. O que são DHCP, DNS e gateway?
-	O DCHP (dynamic host configuration protocol) server é o responśavel por fornecer os ips das maquinas conectadas à sub-rede à qual pertence.
-    DNS (domain name system) é um sistema que traduz ips em nomes 'legíveis',  dhcps servers podem acompanhar um DNS server também.
-    Um gateway é um dispostivo encarregado de estabelecer a comunicação entre duas redes, respeitando protocolos específicos e tomando decisões para que
-    as duas pontas funcionem. Resumindo,ele faz o papel de ponte.
+O DCHP (dynamic host configuration protocol) server é o responśavel por fornecer os ips das maquinas conectadas à sub-rede à qual pertence.
+
+DNS (domain name system) é um sistema que traduz ips em nomes 'legíveis',  dhcps servers podem acompanhar um DNS server também.
+
+Um gateway é um dispostivo encarregado de estabelecer a comunicação entre duas redes, respeitando protocolos específicos e tomando decisões para que as duas pontas funcionem. Resumindo,ele faz o papel de ponte.
 

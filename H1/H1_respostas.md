@@ -83,7 +83,7 @@ PXE Boot é um método de boot remoto desenvolvido pela Intel, que permite que o
 Em um datacenter real, o PXE é extremamente útil, pois como ele permite que todas as máquinas possam ser bootadas remotamente, sem necessidade de instalar o sistema operacional por meio de um pendrive.
 
 #### 2. Analisando em um aspecto mais amplo, quais outras funcionalidades do MaaS pode ser útil no gerenciamento de bare metal?
-Por meio do Intel AMT, o Maas consegue gerenciar a energia das máquinas, podendo liga e desligar cada uma remotamente. Além disso, é possível automatizar a descoberta e registro de cada dispositivo na rede, fazer o deply de uma máquina remotamente, configurar interface de rede das máquinas, gerenciar a rede, fazer integrações com outras ferramentas de automação (clojure, juju...) e monitora os serviços críticos da rede de computadores.
+Por meio do Intel AMT, o Maas consegue gerenciar a energia das máquinas, podendo liga e desligar cada uma remotamente. Além disso, é possível automatizar a descoberta e registro de cada dispositivo na rede, fazer o deploy de uma máquina remotamente, configurar interface de rede das máquinas, gerenciar a rede, fazer integrações com outras ferramentas de automação (clojure, juju...) e monitorar os serviços críticos da rede de computadores.
 
 ## Finalizando a rede para acesso “externo”.
 #### 1. Qual o nome e como funciona a ferramenta utilizada?
@@ -94,7 +94,7 @@ Para conseguir acessar o Maas da nossa casa, o administrador de redes do Insper,
 
 ## Questões Complementares
 #### 1. O que significa LTS? Por que isso importa para uma empresa?
-LTS significa Long Term Support é um tipo de contrato que a empresa mantenedora do software tem com seus usuários, que garante a manutenção e atualização do software por um perído de tempo maior, mantendo a integridade do mesmo, sem implementar mudanças bruscas como features novas.
+LTS significa Long Term Support é um tipo de contrato que a empresa mantenedora do software tem com seus usuários, que garante a manutenção e atualização do software por um período de tempo maior, mantendo a integridade do mesmo, sem implementar mudanças bruscas como features novas.
 
 #### 2. O que é IPv6? Qual a importância da migração?
 O padrão atual do IP (Internet Protocol) é a versão 4 (IPv4) que tem um tamanho de 32 bits, permitindo que 2^32 dispositivos sejam mapeados por meio de IP Addresses. Mas a partir da década de 90 em que ja previam que com a ascenção da Internet, uma hora os quase 4 bilhões de possíveis hosts iriam se esgotar. Portanto, recorreu-se a uma nova versão do protocolo, chamada IPv6, onde o endereço passa ter tamanho 128 bits, permitindo muitos novos endereços. Ele também reduzuz o tamanho das tabelas de roteamento, aumenta a velocidade de processamento de pacotes pelos roteadores, é mais seguro, é mais fácil de ser evoluído e permite a coexistência de diferentes protocolos. A migração é de extrema importância para a internet não estagnar em número de usuários. 

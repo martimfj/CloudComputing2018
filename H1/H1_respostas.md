@@ -64,8 +64,7 @@ Para aplicar as configurações, bastou rodar o comando `sudo netplan apply`
 
 ## Configurando o MaaS
 #### Verifique se o SSH está funcionando. Aonde você deve conectar o seu notebook?
-Podemos conectar o computador ao MaaS por meio do SSH, fazendo o `ssh cloud@192.168.0.3
-`. 
+Podemos conectar o computador ao MaaS por meio do SSH, fazendo o `ssh cloud@192.168.0.3`. 
 
 #### Chave pública gerada:
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCq20Zts/xPSZOzjtvQl5Lh2XcEzIxvM/WOlMssg53V5PgbXIPXWjYNpeMsEB5gm6EdmD+GXrOqMolSbQUVQVT7LcDlnDetRE6w9C58D6ZhunuRGHKSCI8HlS4wIXZHBbj3Vor8xxFKMrgsQSt1BUKV7U7cfKZgvNof+rHkQf77Wsm13xX4qdhxY1+CBW/7/c5LSPqjZVqmJfq7R8/v30D7Ccnhn5Oqgnm609/rGSVUklw4/qW+uQHfasRcHo76RDP0UDgpvBQUNL7Rxnqk5Z/trX1mrDGsJqOJiMDSNDvJlV648w6hVEHzK66gW6SnExY6HZxRA8/5K5b8urnXkjTj cloud@cloud

@@ -21,11 +21,34 @@ Já o LXD é... ?
 https://linuxcontainers.org/lxd/introduction/
 
 ## Deploying Wordpress com Load Balancing:
+
+#### IP do wordpress via browser:
+
+http://192.168.1.11  
+
+que é o ip do hproxy.
+
 #### 4. Explique o conceito por traz do HAProxy (Reverse Proxy). Vocês já fizeram algo parecido?
+
+  O HaProxy é responsável por fazer o redirecionamento de requisições do cliente para diferentes servidores
+  da sua cloud. Fizemos algo parecido no roteiro 0 quando configuramos o load balancer, uma vez que esse usa
+  o HaProxy para o redirecionamento.
+
 
 #### 5. Na instalação, o Juju alocou automaticamente 4 máquinas físicas, duas para o Wordpress, uma para o Mysql e uma para o HAProxy. Considerando que é um Hardware próprio, ao contrário do modelo Public Cloud, isso é uma característica boa ou ruim?
 
+Ruim, uma vez que com uma private cloud você deveria ter customização máxima e inteiro controle sobre o seu
+pool de maquinas, ou seja, se você sabe que o wordpress será o suficiente somente em uma máquina, você o deploya só em uma ao invés de 2 como a juju faria.
+
 #### 6. Crie um roteiro de implantação do Wordpress no seu hardware sem utilizar o Juju.
+- Acessar via SSH uma maquina disponivel
+- Installar via CLI o mysql
+- Acessar uma segunda maquina disponível via SSH
+- Instalar via CLI o Apache Webserver
+- Instalar via CLI o Php e seus modulo
+- Instalar via CLI o wordpress
+- Na pagina de admin do wordpress linkar seu projeto ao banco de dados criado
+- Permitir a conexão à maquina onde esta seu wordpress via HTTP/HTTPS não somente via SSH
 
 ## Protótipo I
 - Hugo Mendes: (repositório git)

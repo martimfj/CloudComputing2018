@@ -14,11 +14,9 @@ O sistema operacional utilizado na máquina Juju é o...
 
 
 #### 3. O que é LXC? e LXD?
-LXC (Linux Conteiners) é um método de virtualizar o sistema operacional para rodar isoladamente múltiplos sistemas Linux (Conteiners) em uma máquina, usando um único Kernel Linux. Com isso, é possível ter diversas aplicações rodando simultaneamente, de forma isolada, controlando-as por meio de um Kernel só.
+LXC (Linux Conteiners) é uma biblioteca de baixo nível, que permite virtualizar o sistema operacional para rodar isoladamente múltiplos sistemas Linux (Conteiners) em uma máquina, usando um único Kernel Linux. Com isso, é possível ter diversas aplicações rodando simultaneamente, de forma isolada, controlando-as por meio de um Kernel só.
 
-Já o LXD é... ? 
-
-https://linuxcontainers.org/lxd/introduction/
+Já o LXD é construído em cima do LXC, com o intuito de fornecer uma melhor experiência ao usuário, criando e gerenciando conteiners de maneira mais fácil. Um dos features mais marcantes do LXD é que ele pode ser controlado por meio da internet de forma transparente, por meio de uma REST API.
 
 ## Deploying Wordpress com Load Balancing:
 
@@ -60,8 +58,14 @@ pool de maquinas, ou seja, se você sabe que o wordpress será o suficiente some
 #### 1. Juju é uma aplicação distribuída? E o MaaS?
 
 #### 2. Qual a diferença entre REST e RPC?
+REST (Representational State Transfer) é uma arquitetura que define um jeito estruturado de representar os recursos ou coleções de recursos da solução. REST permite a relação entre cliente-servidor, onde os dados são disponibilizados em formatos como JSON e XML. Essa arquitetura modela as entidades como recursos e usa os verbos de HTTP para representar as transações dos recursos (GET para ler, POST para criar, PUT para mudar). Todos esses verbos são invocados na mesma URL e provocam diferentes funcionalidades.
+
+Já o RPC (Remote Procedure Call) é um protocolo de comunicação entre processos, que permite um programa chamar um procedimento em outro computador ou rede, que é codificado como se fosse uma chamada de procedimento normal. Assim como o REST, esse protocolo é utilizado para implementação de soluções cliente-servidor. Em comparação com a REST, esse protocolo precisa de uma URL para cada requisição, porque não usa os verbos HTTP.
 
 #### 3. O que é SOAP?
+SOAP (Simple Object Access Protocol) é um protocolo para troca de informações estruturadas na implementação de serviços web em redes de computadores. Estre protocolo usa XML como formato de mensagem e depende do protocolo da camada aplicação para fazer a negociação e transmissão de mensagens. O protocolo de aplicação mais utilizado é o RPC (Remote Procedure Call).
+
+"O SOAP é protocolo baseado em XML consiste de três partes: um envelope, que define o que está na mensagem e como processá-la, um cabeçalho com conjunto de regras codificadas para expressar instâncias do tipos de dados definidos na aplicação, e um body com convenções para representar chamadas de procedimentos e respostas." -[Wikipedia](https://pt.wikipedia.org/wiki/SOAP)
 
 ## Concluindo
 #### 1. O que é e o que faz um Deployment Orchestrator? Cite alguns exemplos.

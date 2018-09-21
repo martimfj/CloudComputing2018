@@ -8,10 +8,10 @@ Ao instalar o Dashboard de administração, nos deparamos com um erro na máquin
 Para acessar o Dashboard de administração, fizemos o roteamento de 192.168.1.7:17070 para podermos acessar a dashboard pela rede do Insper. Assim, conseguimos o acesso pelo endereço `https://10.242.32.10:17070/` e pelo comando `juju show-controller --show-password` que nos deu a senha do usuário admin. 
 
 #### 1. Qual o S.O. utilizado na máquina Juju? Quem o instalou?
-O sistema operacional utilizado na máquina Juju é o...
+O sistema operacional utilizado na máquina Juju é o Ubuntu, instalado pelo provedor de recursos da rede que é o MaaS.
 
 #### 2. O programa juju client roda aonde? E o juju service? Como eles interagem entre si?
-
+O juju client roda na máquina MaaS e o juju service roda na máquina juju. Os dois conseguem se comunicar via REST. Quando um o juju dá deploy em uma máquina, o service pede para a MaaS, seu provedor de recursos, por uma máquina.
 
 #### 3. O que é LXC? e LXD?
 LXC (Linux Conteiners) é uma biblioteca de baixo nível, que permite virtualizar o sistema operacional para rodar isoladamente múltiplos sistemas Linux (Conteiners) em uma máquina, usando um único Kernel Linux. Com isso, é possível ter diversas aplicações rodando simultaneamente, de forma isolada, controlando-as por meio de um Kernel só.
@@ -21,32 +21,23 @@ Já o LXD é construído em cima do LXC, com o intuito de fornecer uma melhor ex
 ## Deploying Wordpress com Load Balancing:
 
 #### IP do wordpress via browser:
-
-http://192.168.1.11  
-
-que é o ip do hproxy.
+Pelo `juju status` temos que o IP da máquina HaProxy é http://192.168.1.11
 
 #### 4. Explique o conceito por traz do HAProxy (Reverse Proxy). Vocês já fizeram algo parecido?
-
-  O HaProxy é responsável por fazer o redirecionamento de requisições do cliente para diferentes servidores
-  da sua cloud. Fizemos algo parecido no roteiro 0 quando configuramos o load balancer, uma vez que esse usa
-  o HaProxy para o redirecionamento.
-
+O HaProxy é responsável por fazer o redirecionamento de requisições do cliente para diferentes servidores da sua cloud. Fizemos algo parecido no roteiro 0 quando configuramos o load balancer, uma vez que esse usa o HaProxy para o redirecionamento.
 
 #### 5. Na instalação, o Juju alocou automaticamente 4 máquinas físicas, duas para o Wordpress, uma para o Mysql e uma para o HAProxy. Considerando que é um Hardware próprio, ao contrário do modelo Public Cloud, isso é uma característica boa ou ruim?
-
-Ruim, uma vez que com uma private cloud você deveria ter customização máxima e inteiro controle sobre o seu
-pool de maquinas, ou seja, se você sabe que o wordpress será o suficiente somente em uma máquina, você o deploya só em uma ao invés de 2 como a juju faria.
+Essa é uma característica ruim, uma vez que com uma private cloud você deveria ter customização máxima e inteiro controle sobre o seu pool de máquinas, ou seja, se você sabe que uma máquina é suficiente para rodar o Wordpress, você aloca só em uma ao invés de 2 como a juju faz.
 
 #### 6. Crie um roteiro de implantação do Wordpress no seu hardware sem utilizar o Juju.
-- Acessar via SSH uma maquina disponivel
-- Installar via CLI o mysql
-- Acessar uma segunda maquina disponível via SSH
+- Acessar via SSH uma máquina disponível
+- Instalar via CLI o MySQL
+- Acessar uma segunda máquina disponível via SSH
 - Instalar via CLI o Apache Webserver
-- Instalar via CLI o Php e seus modulo
-- Instalar via CLI o wordpress
-- Na pagina de admin do wordpress linkar seu projeto ao banco de dados criado
-- Permitir a conexão à maquina onde esta seu wordpress via HTTP/HTTPS não somente via SSH
+- Instalar via CLI o PHP e seus módulos
+- Instalar via CLI o Wordpress
+- Na página de admin do Wordpress linkar seu projeto ao banco de dados criado
+- Permitir a conexão à máquina onde esta seu Wordpress via HTTP/HTTPS não somente via SSH
 
 ## Protótipo I
 - Hugo Mendes: (repositório git)
@@ -56,6 +47,7 @@ pool de maquinas, ou seja, se você sabe que o wordpress será o suficiente some
 
 ## Questões Complementares
 #### 1. Juju é uma aplicação distribuída? E o MaaS?
+Juju é uma aplicação distribuída pois é apresentada para os usuários como um sistema único, mesmo que seja uma rede de computadores. A juju tem o seu juju client rodando na máquina do MaaS, enquanto o juju server roda em outra máquina. Isso é apresentado para o usuário como se fosse um sistema único e coerente.
 
 #### 2. Qual a diferença entre REST e RPC?
 REST (Representational State Transfer) é uma arquitetura que define um jeito estruturado de representar os recursos ou coleções de recursos da solução. REST permite a relação entre cliente-servidor, onde os dados são disponibilizados em formatos como JSON e XML. Essa arquitetura modela as entidades como recursos e usa os verbos de HTTP para representar as transações dos recursos (GET para ler, POST para criar, PUT para mudar). Todos esses verbos são invocados na mesma URL e provocam diferentes funcionalidades.
@@ -63,12 +55,22 @@ REST (Representational State Transfer) é uma arquitetura que define um jeito es
 Já o RPC (Remote Procedure Call) é um protocolo de comunicação entre processos, que permite um programa chamar um procedimento em outro computador ou rede, que é codificado como se fosse uma chamada de procedimento normal. Assim como o REST, esse protocolo é utilizado para implementação de soluções cliente-servidor. Em comparação com a REST, esse protocolo precisa de uma URL para cada requisição, porque não usa os verbos HTTP.
 
 #### 3. O que é SOAP?
-SOAP (Simple Object Access Protocol) é um protocolo para troca de informações estruturadas na implementação de serviços web em redes de computadores. Estre protocolo usa XML como formato de mensagem e depende do protocolo da camada aplicação para fazer a negociação e transmissão de mensagens. O protocolo de aplicação mais utilizado é o RPC (Remote Procedure Call).
+SOAP (Simple Object Access Protocol) é um protocolo para troca de informações estruturadas na implementação de serviços web em redes de computadores. Este protocolo usa XML como formato de mensagem e depende do protocolo da camada aplicação para fazer a negociação e transmissão de mensagens. O protocolo de aplicação mais utilizado é o RPC (Remote Procedure Call).
 
 "O SOAP é protocolo baseado em XML consiste de três partes: um envelope, que define o que está na mensagem e como processá-la, um cabeçalho com conjunto de regras codificadas para expressar instâncias do tipos de dados definidos na aplicação, e um body com convenções para representar chamadas de procedimentos e respostas." -[Wikipedia](https://pt.wikipedia.org/wiki/SOAP)
 
 ## Concluindo
 #### 1. O que é e o que faz um Deployment Orchestrator? Cite alguns exemplos.
+
+É um sistema que gerencia o deploy de aplicações. Se encarrega de instalar as depêndecias, configurar 
+os ambientes necessários, executar os passos de instalação na ordem correta, criar relações de dependência
+entre aplicações, fornecer informações sobre o status de cada deploy, comunicar-se com o gerenciador de bare
+metal, entre outras coisas que facilitam a nossa vida. 
+Exemplos de Deployment Orchestrators:
+  - Juju
+  - CloudAware
+  - Kubernetes
+
 
 #### 2. Como é o o processo de interação entre o MaaS e o Juju?
 

@@ -49,6 +49,8 @@ Essa é uma característica ruim, uma vez que com uma private cloud você deveri
 #### 1. Juju é uma aplicação distribuída? E o MaaS?
 Juju é uma aplicação distribuída pois é apresentada para os usuários como um sistema único, mesmo que seja uma rede de computadores. A juju tem o seu juju client rodando na máquina do MaaS, enquanto o juju server roda em outra máquina. Isso é apresentado para o usuário como se fosse um sistema único e coerente.
 
+O Maas está configurado em uma máquina só, não podendo ser identificado um sistema distribuído. Mas em grandes datacenters, o MaaS é distribuído em diversas máquinas, e sua interface com o usuário é única.
+
 #### 2. Qual a diferença entre REST e RPC?
 REST (Representational State Transfer) é uma arquitetura que define um jeito estruturado de representar os recursos ou coleções de recursos da solução. REST permite a relação entre cliente-servidor, onde os dados são disponibilizados em formatos como JSON e XML. Essa arquitetura modela as entidades como recursos e usa os verbos de HTTP para representar as transações dos recursos (GET para ler, POST para criar, PUT para mudar). Todos esses verbos são invocados na mesma URL e provocam diferentes funcionalidades.
 
@@ -63,7 +65,11 @@ SOAP (Simple Object Access Protocol) é um protocolo para troca de informações
 #### 1. O que é e o que faz um Deployment Orchestrator? Cite alguns exemplos.
 
 #### 2. Como é o o processo de interação entre o MaaS e o Juju?
+O MaaS é considerado um provedor de recursos, pois ele gerencia as máquinas da rede, que são os recursos. O juju manda uma requisição REST para o MaaS que cede uma máquina para o deploy da aplicação acontecer.
 
 #### 3. Defina Aplicação Distribuída, Alta Disponibilidade e Load Balancing?
+Uma aplicação distribuída é um conjunto de "blocos" independentes que trabalham em sinergia para fornecer ao usuário um sistema único e coerente. Por exemplo, quando o Facebook é acessado, há diversos servidores alocados pelo mundo que fornecem e recebem dados da aplicação. E tudo isso é feito de forma transparente para o usuário.
+
+Alta disponibilidade é uma característica dada a sistemas resistentes a falhas de hardware e software, com o objetivo de manter seus serviços disponibilizados o máximo de tempo possível. Por exemplo a Amazon, eles tem uma disponibilidade de 99,99%.
 
 #### Conclusão: O Juju utilizou o MaaS como provedor de recursos. O MaaS por sua vez forneceu o que havia disponível no rack. Você acha que seria necessária uma máquina de 32Gb para rodar um Apache Webserver ou um Load Balancer? Extrapole a resposta para um Datacenter real, onde as máquinas possuem configurações muito superiores. Como resolver esse problema?

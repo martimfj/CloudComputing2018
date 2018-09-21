@@ -50,7 +50,7 @@ pool de maquinas, ou seja, se você sabe que o wordpress será o suficiente some
 
 ## Protótipo I
 - Hugo Mendes: (repositório git)
-- Martim José: (repositório git)
+- Martim José: https://github.com/martimfj/juju_charm_tutorial_vanilla
 
 ## Garbage Collector
 

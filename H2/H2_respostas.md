@@ -78,4 +78,10 @@ Uma aplicação distribuída é um conjunto de "blocos" independentes que trabal
 
 Alta disponibilidade é uma característica dada a sistemas resistentes a falhas de hardware e software, com o objetivo de manter seus serviços disponibilizados o máximo de tempo possível. Por exemplo a Amazon, eles tem uma disponibilidade de 99,99%.
 
+O Load Balancing se utiliza do proxy reverso para a distribuição de carga e requisições no servidor. A idéia é que nenhuma maquina esteja sobrecarregada pois a demanda de recursos é distribuída dentre o pool de
+maquinas. Isso é um escalonamento horizontal.
+
 #### Conclusão: O Juju utilizou o MaaS como provedor de recursos. O MaaS por sua vez forneceu o que havia disponível no rack. Você acha que seria necessária uma máquina de 32Gb para rodar um Apache Webserver ou um Load Balancer? Extrapole a resposta para um Datacenter real, onde as máquinas possuem configurações muito superiores. Como resolver esse problema?
+
+Esse é um problema da Juju, ela pede uma maquina de 1gb de ram por exemplo e a MaaS à entrega uma de 32gb por ser a unica que tem  disponivel em seu pool de maquinas. Uma solução é criar maquinas virtuais dentro de
+cada hardware afim de particionar a capacidade de cada uma das maquinas e fornecer recursos on-demand, ou seja, não desperdiçar recursos.

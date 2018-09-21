@@ -64,15 +64,11 @@ SOAP (Simple Object Access Protocol) é um protocolo para troca de informações
 ## Concluindo
 #### 1. O que é e o que faz um Deployment Orchestrator? Cite alguns exemplos.
 
-É um sistema que gerencia o deploy de aplicações. Se encarrega de instalar as depêndecias, configurar 
-os ambientes necessários, executar os passos de instalação na ordem correta, criar relações de dependência
-entre aplicações, fornecer informações sobre o status de cada deploy, comunicar-se com o gerenciador de bare
-metal, entre outras coisas que facilitam a nossa vida. 
-Exemplos de Deployment Orchestrators:
+É um sistema que gerencia o deploy de aplicações. Se encarrega de instalar as depêndecias, configurar os ambientes necessários, executar os passos de instalação na ordem correta, criar relações de dependência entre aplicações, fornecer informações sobre o status de cada deploy, comunicar-se com o gerenciador de bare
+metal, entre outras coisas que facilitam a nossa vida. Exemplos de Deployment Orchestrators:
   - Juju
   - CloudAware
   - Kubernetes
-
 
 #### 2. Como é o o processo de interação entre o MaaS e o Juju?
 O MaaS é considerado um provedor de recursos, pois ele gerencia as máquinas da rede, que são os recursos. O juju manda uma requisição REST para o MaaS que cede uma máquina para o deploy da aplicação acontecer.

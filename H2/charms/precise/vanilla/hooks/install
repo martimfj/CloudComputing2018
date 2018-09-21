@@ -1,0 +1,40 @@
+#!/bin/bash
+set -e # If any command fails, stop execution of the hook with that error
+apt-get install -y apache2 php-cgi php-mysql curl php-gd wget libapache2-mod-php
+dl="https://github.com/vanillaforums/Garden/archive/Vanilla_2.0.18.8.tar.gz"
+# Grab Vanilla from upstream.
+status-set maintenance "Fetching and installing Vanilla"
+wget "$dl" -O /tmp/vanilla.tar.gz
+# IDEMPOTENCY is very important in all charm hooks, even the install hook.
+if [ -f /var/www/vanilla/conf/config.php ]; then
+  cp /var/www/vanilla/conf/config.php /tmp/
+  rm -rf /var/www/vanilla
+fi
+# Extract to a known location
+juju-log "Extracting Vanilla"
+tar -xvzf /tmp/vanilla.tar.gz -C /var/www/
+mv /var/www/vanilla-Vanilla* /var/www/vanilla
+if [ -f /tmp/config.php ]; then
+  mv /tmp/config.php /var/www/vanilla/conf/
+fi
+chmod -R 777 /var/www/vanilla/conf /var/www/vanilla/uploads /var/www/vanilla/cache
+status-set maintenance "Creating apache2 configuration"
+cat <<EOF > /etc/apache2/sites-available/vanilla.conf
+<VirtualHost *:80>
+  ServerAdmin webmaster@localhost
+  DocumentRoot /var/www/vanilla
+  <Directory /var/www/vanilla>
+    Options Indexes FollowSymLinks MultiViews
+    AllowOverride All
+    Order allow,deny
+    allow from all
+  </Directory>
+  ErrorLog \${APACHE_LOG_DIR}/vanilla.log
+  LogLevel warn
+  CustomLog \${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+EOF
+a2dissite 000-default
+a2ensite vanilla
+service apache2 reload
+status-set blocked "Waiting for active database connection"

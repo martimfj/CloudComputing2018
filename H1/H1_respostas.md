@@ -137,3 +137,10 @@ Existem várias técnicas para dividir uma rede, e a subrede é uma delas. A sub
 - Um gateway é um dispostivo encarregado de estabelecer a comunicação entre duas redes, respeitando protocolos específicos e tomando decisões para que as duas pontas funcionem. Resumindo,ele faz o papel de ponte.
 
 #### Conclusão: Descreva como o MaaS poderia ser utilizado em um datacenter real (com muitos servidores) e como seria um processo alternativo sem essa ferramenta. Ainda, é possível e SIMPLES realizar a implantação de uma aplicação usando o MaaS?
+
+Assim como em uma infra menor como a montada para o desenvolvimento dessa matéria o MaaS também gerenciaria o baremetal (com as funcionalidades descritas no item 2 do comissioning nodes)
+foi feito para ser robusto o suficiente afim de que seja possível gerenciar centenas/milhares de máquinas. Um processo alternativo seria fazer as configurações, deploys, gerenciamento energético
+etc, individual em cada maquina da sua infra. Em um nivel de aplicação "grande" ficaria complexo fazer deploys de diferentes aplicações divididas em diferentes maquinas, com uma grande
+gama de customizações. Seria possível ? Sim, mas simples com certeza não. Por isso que usamos o juju como forma de simplificar esses processos.
+
+

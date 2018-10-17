@@ -1,10 +1,54 @@
 # Cap. 3 - Private Cloud Stack - 4 Aulas
 ### Hugo Mendes e Martim José
 ## Instalando Canonical Distro:
+Para baixar o charm do Openstack:
+* wget https://api.jujucharms.com/charmstore/v5/openstack-base/archive
+* unzip archive
+
+Escolhemos começar um controller novo:
+* `juju kill-controller`
+* `juju bootstrap maas main --to juju`
+
+Instalando o bundle customizado:
+* `juju deploy bundle.yaml`
+
+Instalando o client do Openstack:
+* `sudo apt  install python3-openstackclient`
+
+Para criar as variáveis do ambiente:
+* `cd ~openstack` (diretório onde o charm foi extraído)
+* `source openrc`
+* `env` (imprime as variáveis de ambiente)
+
 #### 1. Faça um desenho de como é a sua arquitetura de solução, destacando o hardware, sistema operacional/container e respectivas alocações dos serviços.
 
 
-## Configurando o Openstack
+## Configurando o Openstack (https://jujucharms.com/openstack-base/)
+Para importar a imagem do Ubuntu 16:
+```
+curl http://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-disk1.img | \
+    openstack image create --public --container-format=bare --disk-format=qcow2 xenial
+```
+
+Para importar a imagem do Ubuntu 18:
+```
+curl http://cloud-images.ubuntu.com/bionic/current/bionic-server-cloudimg-amd64.img  | \
+    openstack image create --public --container-format=bare --disk-format=qcow2 bionic
+```
+
+Para configurar uma rede "externa" e roteador compartilhado:
+```
+./neutron-ext-net-ksv3 --network-type flat
+    -g 192.168.0.1 -c 192.168.0.0/20 \
+    -f 192.168.8.1:192.168.9.254 ext_net
+```
+
+Para configurar a rede interna:
+```
+./neutron-tenant-net-ksv3 -p admin -r provider-router \
+    [-N <dns-server>] internal 192.169.0.0/24
+```
+
 #### 2. Faça um desenho de como é a sua arquitetura de rede, desde a conexão com o Insper até a instância alocada.
 
 

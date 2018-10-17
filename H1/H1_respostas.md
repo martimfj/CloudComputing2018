@@ -136,3 +136,4 @@ Existem várias técnicas para dividir uma rede, e a subrede é uma delas. A sub
 
 - Um gateway é um dispostivo encarregado de estabelecer a comunicação entre duas redes, respeitando protocolos específicos e tomando decisões para que as duas pontas funcionem. Resumindo,ele faz o papel de ponte.
 
+#### Conclusão: Descreva como o MaaS poderia ser utilizado em um datacenter real (com muitos servidores) e como seria um processo alternativo sem essa ferramenta. Ainda, é possível e SIMPLES realizar a implantação de uma aplicação usando o MaaS?

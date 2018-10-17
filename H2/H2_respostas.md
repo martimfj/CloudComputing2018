@@ -40,7 +40,7 @@ Essa é uma característica ruim, uma vez que com uma private cloud você deveri
 - Permitir a conexão à máquina onde esta seu Wordpress via HTTP/HTTPS não somente via SSH
 
 ## Protótipo I
-- Hugo Mendes: (repositório git)
+- Hugo Mendes: https://github.com/hugosoftdev/jujucharm
 - Martim José: https://github.com/martimfj/juju_charm_tutorial_vanilla
 
 ## Garbage Collector

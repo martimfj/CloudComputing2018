@@ -83,3 +83,10 @@ O Load Balancing se utiliza do proxy reverso para a distribuição de carga e re
 #### Conclusão: O Juju utilizou o MaaS como provedor de recursos. O MaaS por sua vez forneceu o que havia disponível no rack. Você acha que seria necessária uma máquina de 32Gb para rodar um Apache Webserver ou um Load Balancer? Extrapole a resposta para um Datacenter real, onde as máquinas possuem configurações muito superiores. Como resolver esse problema?
 
 Não é necessário ter uma máquina inteira para rodar um Apache Webserver ou um Load Balancer. Em um datacenter real, as máquinas são muito superiores do que a Intel NUC que temos no rack. Alocar uma máquina inteira para executar um serviço que não utiliza todos os recursos desta máquina é desperdício de dinheiro. Esse problema pode ser resolvido por de máquinas virtuais dentro de cada máquina física, assim compartilhando os recursos da máquina e fornecendo recursos on-demand. Isso pode ser feito por meio do openstack.
+
+
+
+
+
+
+

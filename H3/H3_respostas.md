@@ -14,6 +14,7 @@ Instalando o bundle customizado:
 
 Instalando o client do Openstack:
 * `sudo apt  install python3-openstackclient`
+* `sudo apt install python-novaclient python-keystoneclient python-glanceclient python-neutronclient python-openstackclient -y` (instala as ferramentas necessárias para o client)
 
 Para criar as variáveis do ambiente:
 * `cd ~openstack` (diretório onde o charm foi extraído)
@@ -36,18 +37,44 @@ curl http://cloud-images.ubuntu.com/bionic/current/bionic-server-cloudimg-amd64.
     openstack image create --public --container-format=bare --disk-format=qcow2 bionic
 ```
 
-Para configurar uma rede "externa" e roteador compartilhado:
+Para configurar uma rede "externa" e roteador compartilhado (na pasta openstack):
 ```
-./neutron-ext-net-ksv3 --network-type flat
-    -g 192.168.0.1 -c 192.168.0.0/20 \
-    -f 192.168.8.1:192.168.9.254 ext_net
+./neutron-ext-net-ksv3 --network-type flat -g 192.168.0.1 -c 192.168.0.1/20 -f 192.168.8.1:192.168.9.254 ext_net
 ```
 
-Para configurar a rede interna:
+Para configurar a rede interna (na pasta openstack):
 ```
-./neutron-tenant-net-ksv3 -p admin -r provider-router \
-    [-N <dns-server>] internal 192.169.0.0/24
+./neutron-tenant-net-ksv3 -p admin -r provider-router -N 1.1.1.1 internal 192.169.0.0/24
 ```
+
+Para configurar os flavors (instance type):
+* `openstack flavor create --ram 1024 --disk 20 --ephemeral 0 m1.tiny`
+* `openstack flavor create --ram 2048 --disk 20 --ephemeral 0 m1.small`
+* `openstack flavor create --ram 4096 --disk 40 --ephemeral 0 m1.medium`
+* `openstack flavor create --ram 8192 --disk 40 --ephemeral 0 m1.large`
+
+Para criar um Key-pair usando a *public key* do próprio MaaS:
+* `openstack keypair create --public-key ~/.ssh/id_rsa.pub mykey`
+
+(O ideal era ter uma keypair para cada instância, mas como estamos em um ambiente controlado, podemos fazer assim. De modo que o MaaS consiga acessar todas as instâncias com uma chave só.)
+
+Via o comando `juju status` é possível ver que a Dashboard é acessível pelo ip *192.168.1.30*. Para acessar remotamente, foi feito um port foward no roteador:
+* 10.242.32.10:80 => 192.168.1.30:80
+* 10.242.32.10/horizon
+
+Os dados de login da dashboard estão nas variáveis `env`:
+* domain: admin_domain -> [OS_USER_DOMAIN_NAME]
+* username: admin -> [OS_USERNAME] 
+* senha: [OS_PASSWORD]
+
+Para liberar o acesso SSH, ICMP e DNS:
+* Project > Network > Security Groups > Default - Manage Rules
+* Para cada nova regra: Add Rule > Rule [SSH, ICMP, DNS] > Add (0.0.0.0/0 para todos os IPs)
+  
+Para disparar uma instância:
+* http://10.242.32.10/horizon/project/instances/
+  
+**Paramos em: Aloque um floating IP para a instância. Não se esqueça do port-forwarding.**
 
 #### 2. Faça um desenho de como é a sua arquitetura de rede, desde a conexão com o Insper até a instância alocada.
 

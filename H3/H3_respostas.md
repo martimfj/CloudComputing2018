@@ -2,8 +2,8 @@
 ### Hugo Mendes e Martim José
 ## Instalando Canonical Distro:
 Para baixar o charm do Openstack:
-* wget https://api.jujucharms.com/charmstore/v5/openstack-base/archive
-* unzip archive
+* `wget https://api.jujucharms.com/charmstore/v5/openstack-base/archive`
+* `unzip archive`
 
 Escolhemos começar um controller novo:
 * `juju kill-controller`
@@ -20,9 +20,10 @@ Para criar as variáveis do ambiente:
 * `cd ~openstack` (diretório onde o charm foi extraído)
 * `source openrc`
 * `env` (imprime as variáveis de ambiente)
+* `openstack catalog list` (lista os serviços)
 
 #### 1. Faça um desenho de como é a sua arquitetura de solução, destacando o hardware, sistema operacional/container e respectivas alocações dos serviços.
-
+![Diagrama de Arquitetura de Solução](diagrama_solucao.png)
 
 ## Configurando o Openstack (https://jujucharms.com/openstack-base/)
 Para importar a imagem do Ubuntu 16:
@@ -39,12 +40,12 @@ curl http://cloud-images.ubuntu.com/bionic/current/bionic-server-cloudimg-amd64.
 
 Para configurar uma rede "externa" e roteador compartilhado (na pasta openstack):
 ```
-./neutron-ext-net-ksv3 --network-type flat -g 192.168.0.1 -c 192.168.0.1/20 -f 192.168.8.1:192.168.9.254 ext_net
+./neutron-ext-net-ksv3 --network-type flat -g 192.168.0.1 -c 192.168.0.0/20 -f 192.168.8.1:192.168.9.254 ext_net
 ```
 
 Para configurar a rede interna (na pasta openstack):
 ```
-./neutron-tenant-net-ksv3 -p admin -r provider-router -N 1.1.1.1 internal 192.169.0.0/24
+./neutron-tenant-net-ksv3 -p admin -r provider-router -N 1.1.1.1 internal 192.169.1.0/24
 ```
 
 Para configurar os flavors (instance type):
@@ -71,22 +72,65 @@ Para liberar o acesso SSH, ICMP e DNS:
 * Project > Network > Security Groups > Default - Manage Rules
 * Para cada nova regra: Add Rule > Rule [SSH, ICMP, DNS] > Add (0.0.0.0/0 para todos os IPs)
   
-Para disparar uma instância:
+Para disparar uma instância tiny sem volume adicional:
 * http://10.242.32.10/horizon/project/instances/
+* Source > Delete Volume on Instance delete: `No`
+* Source > Allocated: `Bionic`
+* Network > Alocated: in_net
+* Flavor: m1.tiny
+* Key Pair > Create Key Pair: MyKey
   
-**Paramos em: Aloque um floating IP para a instância. Não se esqueça do port-forwarding.**
+Para alocar um IP flutuante para instância:
+* Instance (em questão) > Associate Floating IP
+* Crie o IP (+) e associe à instância
+* Floating IP associado: `192.168.8.1`
+  
+Assim, o IP interno da instância na rede openstack (*192.169.1.0/24*) é *192.169.1.19*. Estando na rede externa (*192.168.0.0/20*), é possível conectar na rede interna por meio de um roteador e acessar a instância criada. O esquema pode ser visto abaixo:
+![Network topology](network_topology.jpeg)
+
+Para testar a conexão SSH, podemos conectar na rede interna *192.168.0.0/20* e depois na instância criada (que está na rede interna do Openstack), por meio de:
+* `ssh cloud@10.242.32.10`
+* `ssh ubuntu@192.168.8.1` (floating IP)
 
 #### 2. Faça um desenho de como é a sua arquitetura de rede, desde a conexão com o Insper até a instância alocada.
-
+![Diagrama de Rede](diagrama_network.png)
 
 ## Criando usuários
-#### 3. Monte um passo a passo de configuração de rede via Horizon.
 
+A interface para criar um usuário e um projeto:
+* Identity > Users > Create User
+
+Para testar a conexão SSH com a instância, foi preciso transferir a private key pair para a máquina cloud:
+* `scp Downloads/keypairmartim.pem scp://cloud@10.242.32.10//home/cloud/martimfjkeypair.pem`
+
+Para conectar na instância pela máquina Cloud:
+* chmod 400 martimfjfjkeypair.pem
+* ssh ubuntu@192.168.8.12 -i martimfjkeypair.pem
+
+#### 3. Monte um passo a passo de configuração de rede via Horizon.
+Network > Network Topology > Create Network
+* Network Name: `intnet_martim`
+* Subnet Name: `subnet_martim`
+* Network Address: `192.171.0.0/24`
+* Allocation Pools: `192.171.0.3, 192.171.0.254`
+* DNS Name Servers: 
+``` 
+192.171.0.2
+192.168.0.3
+8.8.8.8
+```
+
+Network > Network Topology > Create Router
+* Router Name: `router_martim`
+* External Network: `ext_net`
+
+Clique no roteador e adicione uma interface:
+* Subnet: `intnet_martim: 192.171.0.0/24`
+* IP Address: `192.171.0.1`
 
 ## Protótipo II
 * Hugo Mendes: (repositório git)
-* Martim José: (repositório git)
-
+* Martim José: https://github.com/martimfj/openstack_shadeapp
 
 ## Deja-vu (Juju Reborn)
 #### 4. Escreva as configurações utilizadas para incluir o Openstack como Cloud Provider no Juju.

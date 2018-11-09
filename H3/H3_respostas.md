@@ -49,10 +49,12 @@ Para configurar a rede interna (na pasta openstack):
 ```
 
 Para configurar os flavors (instance type):
-* `openstack flavor create --ram 1024 --disk 20 --ephemeral 0 m1.tiny`
-* `openstack flavor create --ram 2048 --disk 20 --ephemeral 0 m1.small`
-* `openstack flavor create --ram 4096 --disk 40 --ephemeral 0 m1.medium`
-* `openstack flavor create --ram 8192 --disk 40 --ephemeral 0 m1.large`
+* openstack flavor create --ram <size-mb> --disk <size-gb> --ephemeral-disk <size-gb> --vcpus <num-cpu> <flavor-name>
+
+* `openstack flavor create --ram 1024 --disk 20 --ephemeral 0 --vcpus 1 m1.tiny`
+* `openstack flavor create --ram 2048 --disk 20 --ephemeral 0 --vcpus 1 m1.small`
+* `openstack flavor create --ram 4096 --disk 40 --ephemeral 0 --vcpus 2 m1.medium`
+* `openstack flavor create --ram 8192 --disk 40 --ephemeral 0 --vcpus 4 m1.large`
 
 Para criar um Key-pair usando a *public key* do próprio MaaS:
 * `openstack keypair create --public-key ~/.ssh/id_rsa.pub mykey`
@@ -134,6 +136,25 @@ Clique no roteador e adicione uma interface:
 
 ## Deja-vu (Juju Reborn)
 #### 4. Escreva as configurações utilizadas para incluir o Openstack como Cloud Provider no Juju.
+
+Para acessar a instância *test* criada no início do roteiro:
+* `ssh ubuntu@192.168.8.1`
+
+Instalando o juju e o juju-gui:
+* `apt install python-software-properties`
+* `sudo add-apt-repository ppa:juju/stable`
+* `sudo apt-get update && sudo apt-get install`
+* `juju-core`
+* `juju generate-config`
+
+Adicionando o Openstack como *Cloud Provider* no Juju:
+* `juju add-cloud maas ~/.local/share/juju/clouds.yaml`
+
+Para instalar o Kubernetes core, acesse a máquina criada via SSH:
+* `juju deploy kubernetes-core`
+
+Para testar: https://jujucharms.com/kubernetes-core/
+Entrar no dashborad: Interacting with the Kubernetes cluster
 
 #### 5. Escreva o comando de bootstrap.
 

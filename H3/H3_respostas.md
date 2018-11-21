@@ -150,18 +150,31 @@ Instalando o juju e o juju-gui:
 Adicionando o Openstack como *Cloud Provider* no Juju:
 * `juju add-cloud maas ~/.local/share/juju/clouds.yaml`
 
+Para criar um serviço Simplestreams:
+* ``
+
+#### 5. Escreva o comando de bootstrap.
 Para instalar o Kubernetes core, acesse a máquina criada via SSH:
 * `juju deploy kubernetes-core`
 
-Para testar: https://jujucharms.com/kubernetes-core/
-Entrar no dashborad: Interacting with the Kubernetes cluster
-
-#### 5. Escreva o comando de bootstrap.
-
+Para testar o acesso do Kubernetes:
+* `mkdir -p ~/.kube`
+* `juju scp kubernetes-master/1:config ~/.kube/config`
+* `snap install kubectl --classic`
+* `kubectl cluster-info`
 
 ## Escalando o Kubernetes
-#### 6. O que é um Hypervisor? Qual o hypervisor do Openstack, da AWS e da Azure?
+Entrando no Overview da dashboard do Openstack, é possível ver a quantidade de recursos sendo utilizadas (CPUS: 8/20, RAM: 17/50)
 
+Na aba de instâncias do dashboard, é possível ver que o kubernetes worker utiliza uma máquina m1.large (4 CPUS, 8 RAM, 40 Disk). Portanto, podemos subir mais 3 instâncias m1.large, ficando com (CPUS: 20/20, RAM: 41/50)
+
+Para escalar horizontalmente o Kubernetes:
+* `juju add-unit kubernetes-worker`
+
+#### 6. O que é um Hypervisor? Qual o hypervisor do Openstack, da AWS e da Azure?
+Hypervisior é uma camada de software entre o hardware e o sistema operacional. É responsável por fornecer ao sistema operacional a abstração da máquina virtual, ou seja, ele controla os recursos de hardware que os SO podem acessar. Existem vários Hypervisiors no mercado, tanto open source quanto pago.
+
+O Openstack permite a utilização de diversos tipos de Hypervisiors, mas o mais utilizado é o KVM. A AWS, criou um dedicado para solução deles baseando-se no KVM. E a Azuere, criou um similar ao Microsoft Hyper V, chamado Azure Hypervisior customizado para a plataforma deles.
 
 ## Habilitando o LoadBalancer
 #### 7. Escreva o seu roteiro detalhado de instalação e testes
@@ -181,7 +194,27 @@ Entrar no dashborad: Interacting with the Kubernetes cluster
 #### 1. Cite e explique pelo menos 2 circunstâncias em que a Private Cloud é mais vantajosa que a Public Cloud.
 
 #### 2. Openstack é um Sistema Operacional? Descreva seu propósito e cite as principais distribuições?
+O Openstack não é um sistema operacional de um computador, mas ele pode ser considerado um sistema operacional de uma nuvem, permitindo que os usuários deem deploy em máquinas virtuais e outras instâncias que lidam com diversas tarefas no gerenciamento do ambiente cloud. A plataforma facilita a escalabilidade horizontal, o que significa que as tarefas que se beneficiam da execução simultânea podem facilmente servir mais ou menos usuários rapidamente simplesmente acionando mais instâncias.
+
+O Openstack tem diversas distribuições desenvolvidas por grandes empresas como Canonical, IBM, Oracle, Red Hat, VMware e outras.
 
 #### 3. Quais são os principais componentes dentro do Openstack? Descreva brevemente suas funcionalidades.
+Nova is the primary computing engine behind OpenStack. It is used for deploying and managing large numbers of virtual machines and other instances to handle computing tasks.
+
+Swift is a storage system for objects and files. Rather than the traditional idea of a referring to files by their location on a disk drive, developers can instead refer to a unique identifier referring to the file or piece of information and let OpenStack decide where to store this information. This makes scaling easy, as developers don’t have the worry about the capacity on a single system behind the software. It also allows the system, rather than the developer, to worry about how best to make sure that data is backed up in case of the failure of a machine or network connection.
+
+Cinder is a block storage component, which is more analogous to the traditional notion of a computer being able to access specific locations on a disk drive. This more traditional way of accessing files might be important in scenarios in which data access speed is the most important consideration.
+
+Neutron provides the networking capability for OpenStack. It helps to ensure that each of the components of an OpenStack deployment can communicate with one another quickly and efficiently.
+
+Horizon is the dashboard behind OpenStack. It is the only graphical interface to OpenStack, so for users wanting to give OpenStack a try, this may be the first component they actually “see.” Developers can access all of the components of OpenStack individually through an application programming interface (API), but the dashboard provides system administrators a look at what is going on in the cloud, and to manage it as needed.
+
+Keystone provides identity services for OpenStack. It is essentially a central list of all of the users of the OpenStack cloud, mapped against all of the services provided by the cloud, which they have permission to use. It provides multiple means of access, meaning developers can easily map their existing user access methods against Keystone.
+
+Glance provides image services to OpenStack. In this case, "images" refers to images (or virtual copies) of hard disks. Glance allows these images to be used as templates when deploying new virtual machine instances.
+
+Ceilometer provides telemetry services, which allow the cloud to provide billing services to individual users of the cloud. It also keeps a verifiable count of each user’s system usage of each of the various components of an OpenStack cloud. Think metering and usage reporting.
+
+Heat is the orchestration component of OpenStack, which allows developers to store the requirements of a cloud application in a file that defines what resources are necessary for that application. In this way, it helps to manage the infrastructure needed for a cloud service to run.
 
 #### Conclusão: A arquitetura em núvem permite diminuir o disperdício de hardware e ganho na mobilidade de recursos. Contudo existem sérios riscos que podem paralizar as operações de uma empresa. Todo equipamento e arquiteturas complexas são passíveis de falhas tanto operacionais quanto de segurança. Como seria possível mitigar esses riscos?

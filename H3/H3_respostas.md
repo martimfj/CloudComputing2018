@@ -186,12 +186,14 @@ O Openstack permite a utilização de diversos tipos de Hypervisiors, mas o mais
 #### 2. Dado que vocês trabalharam com Nuvem Pública e com Nuvem Privada, descreva com detalhes como você montaria uma Nuvem Híbrida. Como seria a troca de dados?
 
 #### 3. É possível somar todo o hardware disponível e disparar uma instância gigante (ex: mais memória do que disponível na melhor máquina)? Discorra sobre as possibilidades.
+Não é possível visto que as VMs não conseguem utilizar recursos computacionais de duas máquinas diferentes. Quando uma instância é disparada, a VM só existe dentro de uma máquina.
 
 #### 4. Como visto é possível rodar o Juju sobre o Openstack e o Openstack sobre o Juju. Quais os empecilhos de ter um Openstack rodando sobre outro Openstack?
-
+Quando se fala em Openstack dentro de Openstack (cascata), um dos maiores problemas é a virtualização dos recursos, é como uma VM dentro de uma VM, tudo depende de qual Hypervisior será usado.
 
 ## Concluindo
 #### 1. Cite e explique pelo menos 2 circunstâncias em que a Private Cloud é mais vantajosa que a Public Cloud.
+A private Cloud é mais vantajosa que a Public Cloud no quesito de flexibilidade, de forma que a organização pode customizar o ambiente para satisfazer certas necessidades do business. Outro ponto vantajoso é que os recursos não são compartilhados com outras organizações, de forma que são implementados altos leveis de controle e segurança que a Public Cloud não fornece, além dos impasses de compliance.
 
 #### 2. Openstack é um Sistema Operacional? Descreva seu propósito e cite as principais distribuições?
 O Openstack não é um sistema operacional de um computador, mas ele pode ser considerado um sistema operacional de uma nuvem, permitindo que os usuários deem deploy em máquinas virtuais e outras instâncias que lidam com diversas tarefas no gerenciamento do ambiente cloud. A plataforma facilita a escalabilidade horizontal, o que significa que as tarefas que se beneficiam da execução simultânea podem facilmente servir mais ou menos usuários rapidamente simplesmente acionando mais instâncias.
@@ -199,22 +201,23 @@ O Openstack não é um sistema operacional de um computador, mas ele pode ser co
 O Openstack tem diversas distribuições desenvolvidas por grandes empresas como Canonical, IBM, Oracle, Red Hat, VMware e outras.
 
 #### 3. Quais são os principais componentes dentro do Openstack? Descreva brevemente suas funcionalidades.
-Nova is the primary computing engine behind OpenStack. It is used for deploying and managing large numbers of virtual machines and other instances to handle computing tasks.
+Os principais componentes dentre do Openstack são:
+* **Nova**: é o principal computer engine por trás do Openstack, é usado para fazer deply e gerenciar grandes núemros de máquinas virtuais e outras instâncias para executar tarefas computacionais.
 
-Swift is a storage system for objects and files. Rather than the traditional idea of a referring to files by their location on a disk drive, developers can instead refer to a unique identifier referring to the file or piece of information and let OpenStack decide where to store this information. This makes scaling easy, as developers don’t have the worry about the capacity on a single system behind the software. It also allows the system, rather than the developer, to worry about how best to make sure that data is backed up in case of the failure of a machine or network connection.
+* **Swift**: é o sistema de armazenamento de objetos e arquivos. Para usar esse sistema, não é preciso referenciar a localização dos arquivos, ao invés disso basta se referir a um identificador exclusivo referente ao arquivo/informação e deixar o Openstack decidir onde armazenar essas informações. Isso facilita o dimensionamento, pois o usuário não precisa se preocupar com onde armazenar, como e com o backup dos dados caso falha em alguma máquina. Esse sistema é acessado por meio de uma REST API.
 
-Cinder is a block storage component, which is more analogous to the traditional notion of a computer being able to access specific locations on a disk drive. This more traditional way of accessing files might be important in scenarios in which data access speed is the most important consideration.
+* **Cinder**: é outro sistema de armazenamento de arquivos, que utiliza um armazenamento em bloco parecido com um disco rígido, de permitir acessar locais específicos em uma unidade de disco. Esse sistema pode ser melhor que o Swift em cenários que a velocidade de acesso a dados é a consideração mais importante e é persistente, podendo sobreviver a deleção/falha da VM associada.
 
-Neutron provides the networking capability for OpenStack. It helps to ensure that each of the components of an OpenStack deployment can communicate with one another quickly and efficiently.
+* **Neutron**: é o sistema de networking do Openstack, possibilita e assegura que cada componente implantado (deployed) do Openstack consiga comunicar de maneira rápida e efifiente. 
 
-Horizon is the dashboard behind OpenStack. It is the only graphical interface to OpenStack, so for users wanting to give OpenStack a try, this may be the first component they actually “see.” Developers can access all of the components of OpenStack individually through an application programming interface (API), but the dashboard provides system administrators a look at what is going on in the cloud, and to manage it as needed.
+* **Horizon**: é o dashboard do Openstack, sendo a única interface gráfica que os usuários tem interagir com os outros componentes, que também podem ser acessados por meio de uma API.
 
-Keystone provides identity services for OpenStack. It is essentially a central list of all of the users of the OpenStack cloud, mapped against all of the services provided by the cloud, which they have permission to use. It provides multiple means of access, meaning developers can easily map their existing user access methods against Keystone.
+* **Keystone**: é o serviço de identidade, fornecendo uma lista central de todos os usuários do Openstack, mapeando a relação a todos os serviços fornecidos pela Cloud e as permissões associadas.
 
-Glance provides image services to OpenStack. In this case, "images" refers to images (or virtual copies) of hard disks. Glance allows these images to be used as templates when deploying new virtual machine instances.
+* **Glance**: fornece serviços de imagem (imagens/cópias de disco rígidos) para o Openstack. Esse componente permite que essas imagens sejam usadas como modelos ao fazer o deploy de uma nova VM.
 
-Ceilometer provides telemetry services, which allow the cloud to provide billing services to individual users of the cloud. It also keeps a verifiable count of each user’s system usage of each of the various components of an OpenStack cloud. Think metering and usage reporting.
+* **Ceilometer**: fornece serviços de telemetria, como relatórios de medição de uso de cada usuário da Cloud, permitindo o serviço de faturamento.
 
-Heat is the orchestration component of OpenStack, which allows developers to store the requirements of a cloud application in a file that defines what resources are necessary for that application. In this way, it helps to manage the infrastructure needed for a cloud service to run.
+* **Heat**: é o componente de orquestração do Openstack, permitindo desenvolvedores armazenarem os requisitos de um aplicativo em Cloud em um arquivo que define quais recursos são necessários para esse aplicativo. Desta forma, ajudando a gerenciar a infraestrutura necessária para que um serviço de nuvem seja executado.
 
 #### Conclusão: A arquitetura em núvem permite diminuir o disperdício de hardware e ganho na mobilidade de recursos. Contudo existem sérios riscos que podem paralizar as operações de uma empresa. Todo equipamento e arquiteturas complexas são passíveis de falhas tanto operacionais quanto de segurança. Como seria possível mitigar esses riscos?

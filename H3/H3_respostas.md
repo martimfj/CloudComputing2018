@@ -151,7 +151,7 @@ Adicionando o Openstack como *Cloud Provider* no Juju:
 * `juju add-cloud maas ~/.local/share/juju/clouds.yaml`
 
 Para criar um serviço Simplestreams:
-* ``
+* 
 
 #### 5. Escreva o comando de bootstrap.
 Para instalar o Kubernetes core, acesse a máquina criada via SSH:
@@ -178,18 +178,21 @@ O Openstack permite a utilização de diversos tipos de Hypervisiors, mas o mais
 
 ## Habilitando o LoadBalancer
 #### 7. Escreva o seu roteiro detalhado de instalação e testes
-
+- 
 
 ## Questões Complementares
 #### 1. Assistir o vídeo: https://youtu.be/ZlCoIIgLzYQ
 
 #### 2. Dado que vocês trabalharam com Nuvem Pública e com Nuvem Privada, descreva com detalhes como você montaria uma Nuvem Híbrida. Como seria a troca de dados?
+Como a Cloud Híbrida é a combinação de um ou mais ambientes de cloud pública e privada, deve haver um gerenciamento e automação via software do pool de recursos e serviços. A migração de dados entre esses dois ambientes é feita por APIs criptografadas que transmitem recursos e cargas de trabalho. Essa combinação minimiza a exposição dos dados e permite que a empresa personalize um portfólio escalável, flexível e seguro de recursos e serviços de TI.
+
+Fonte: [Red Hat](https://www.redhat.com/pt-br/topics/cloud-computing/what-is-hybrid-cloud)
 
 #### 3. É possível somar todo o hardware disponível e disparar uma instância gigante (ex: mais memória do que disponível na melhor máquina)? Discorra sobre as possibilidades.
 Não é possível visto que as VMs não conseguem utilizar recursos computacionais de duas máquinas diferentes. Quando uma instância é disparada, a VM só existe dentro de uma máquina.
 
 #### 4. Como visto é possível rodar o Juju sobre o Openstack e o Openstack sobre o Juju. Quais os empecilhos de ter um Openstack rodando sobre outro Openstack?
-Quando se fala em Openstack dentro de Openstack (cascata), um dos maiores problemas é a virtualização dos recursos, é como uma VM dentro de uma VM, tudo depende de qual Hypervisior será usado.
+Quando se fala em Openstack dentro de Openstack (cascata), um dos maiores problemas é a virtualização dos recursos, é como uma VM dentro de uma VM, tudo depende de qual Hypervisior será usado. Pois há virtualizadores que só emulam, não utilizam os recursos físicos da máquina, impossibilitando
 
 ## Concluindo
 #### 1. Cite e explique pelo menos 2 circunstâncias em que a Private Cloud é mais vantajosa que a Public Cloud.
@@ -221,3 +224,4 @@ Os principais componentes dentre do Openstack são:
 * **Heat**: é o componente de orquestração do Openstack, permitindo desenvolvedores armazenarem os requisitos de um aplicativo em Cloud em um arquivo que define quais recursos são necessários para esse aplicativo. Desta forma, ajudando a gerenciar a infraestrutura necessária para que um serviço de nuvem seja executado.
 
 #### Conclusão: A arquitetura em núvem permite diminuir o disperdício de hardware e ganho na mobilidade de recursos. Contudo existem sérios riscos que podem paralizar as operações de uma empresa. Todo equipamento e arquiteturas complexas são passíveis de falhas tanto operacionais quanto de segurança. Como seria possível mitigar esses riscos?
+Pensando nesses casos, é interesante criar planos de contingência, como ter mais de um datacenter com imagens dos dados, operando como backup e processamento extra (como se fosse um RAID). Neste caso, isso serve tanto para Clouds Privadas como Públicas, ambas estão sujeitas aos mesmos tipos de falha, mas na pública há o suporte da empresa, que é especializado em solucionar eventuais problemas.

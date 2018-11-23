@@ -10,3 +10,5 @@
 - [H2: Cap. 2 - Deployment Orchestration - 3 Aulas](../master/H2/H2_respostas.md)
 
 - [H3: Cap. 3 - Private Cloud Stack - 4 Aulas](../master/H3/H3_respostas.md)
+
+- [H4: Cap. 4  Cloud Outtro - 2 Aulas](../master/H4/H4_respostas.md)
